@@ -1,0 +1,35 @@
+[package]
+name = "rs-shot"
+version = "0.1.0"
+description = "ウィンドウを選んで, スクリーンショットを撮って保存するアプリ"
+authors = ["Tetsuya Higashi"]
+license = "GPL-3.0-or-later"
+edition = "2021"
+
+[lib]
+name = "rs_shot"
+path = "src/lib.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+ashpd = { version = "0.13", features = ["screenshot"] }
+chrono = "0.4"
+dirs = "6"
+tokio = { version = "1", features = ["time"] }
+url = "2"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(tarpaulin_include)'] }
