@@ -17,7 +17,7 @@ tauri-build = { version = "2", features = [] }
 tauri = { version = "2", features = [] }
 ashpd = { version = "0.13", features = ["screenshot"] }
 chrono = "0.4"
-dirs = "6"
+dirs = "7"
 tokio = { version = "1", features = ["time"] }
 url = "2"
 
