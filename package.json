@@ -21,7 +21,7 @@
     "check": "npm run format:check && npm run lint:all && npm run test:all"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.5",
+    "@eslint/js": "^10.0.1",
     "@tauri-apps/cli": "^2.12.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
