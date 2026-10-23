@@ -10,7 +10,7 @@ rs-shot は, ウィンドウを選んで, スクリーンショットを撮っ�
 - ビルド: `npm run build` (フロントエンド). `npm run tauri:build` (deb と AppImage)
 - 確認: `npm run check` (prettier と `cargo fmt` の整形の確認, eslint, clippy (`-D warnings`), vitest, cargo test. CI と同じ)
 - 整形: `npm run format`
-- カバレッジ: `npm run coverage` (フロントエンド)
+- カバレッジ: `npm run coverage` (フロントエンド (vitest) とバックエンド (cargo tarpaulin --engine llvm). どちらも 100% を下回ると失敗する. CI の `coverage` のジョブも同じ)
 
 ## プロジェクト構成
 
@@ -33,7 +33,7 @@ rs-shot は, ウィンドウを選んで, スクリーンショットを撮っ�
 
 - **Rust のテストは, `src-tauri/tests/` にファイルを分けて置く** (本番のソースの中に `#[cfg(test)] mod tests` を書かない). テストが呼ぶ関数は `pub` にする. 名前は `test_<対象の関数名>_<内容>`. ファイルを使うテストは `tempfile` を使う.
 - フロントエンドは vitest. `@tauri-apps/api/core` の `invoke` を `vi.mock` でモックする. `it` の説明は「正常系: ...」「異常系: ...」「境界: ...」. 各テストの前に `vi.clearAllMocks()`.
-- 機能を足したり直したりしたら, テストを足す. カバレッジは下げない (フロントエンドは 100%).
+- 機能を足したり直したりしたら, テストを足す. カバレッジは 100% を保つ (フロントエンドもバックエンドも).
 - 実際の撮影 (ポータル, デスクトップの撮影の画面) は, 単体テストでは確認できないので, `npm run tauri:dev` で, 手で確認する.
 
 ## 開発ルール

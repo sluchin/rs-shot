@@ -23,6 +23,10 @@ export default defineConfig({
       include: ["src/**/*.{ts,tsx}"],
       // エントリポイントは, 画面に描くだけなので, 除く.
       exclude: ["src/main.tsx", "src/vite-env.d.ts", "src/tests/**"],
+      // 命令・分岐・関数・行のすべてで 100% を保つ (下回ると失敗する)
+      thresholds: {
+        100: true,
+      },
     },
   },
 });

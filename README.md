@@ -24,7 +24,7 @@
 npm install
 npm run tauri:dev     # 開発用に起動する
 npm run check         # 整形の確認, eslint, clippy, vitest, cargo test
-npm run coverage      # フロントエンドのカバレッジ
+npm run coverage      # カバレッジ (フロントエンドとバックエンド. 100% を下回ると失敗する)
 npm run tauri:build   # deb と AppImage を作る
 ```
 

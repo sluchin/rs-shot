@@ -5,6 +5,7 @@
 
 use chrono::{DateTime, TimeZone};
 use std::fs;
+use std::io;
 use std::path::{Path, PathBuf};
 use url::Url;
 
@@ -99,9 +100,30 @@ pub fn unique_path(dir: &Path, name: &str) -> Result<PathBuf, String> {
 ///
 /// 保存したパス. 失敗したら, [`Err`].
 pub fn store(source: &Path, dir: &Path, name: &str) -> Result<PathBuf, String> {
+    store_with(source, dir, name, |from, to| fs::rename(from, to))
+}
+
+/// [`store`] の本体. 名前の変更を, 引数で受け取ります (別のファイルシステムのときを, テストで再現するため).
+///
+/// # Arguments
+///
+/// * `source` - 撮った画像のパス.
+/// * `dir` - 保存先のディレクトリ.
+/// * `name` - ファイルの名前.
+/// * `rename` - 名前を変えて移す関数 (失敗したら, コピーしてから消す).
+///
+/// # Returns
+///
+/// 保存したパス. 失敗したら, [`Err`].
+pub fn store_with(
+    source: &Path,
+    dir: &Path,
+    name: &str,
+    rename: impl FnOnce(&Path, &Path) -> io::Result<()>,
+) -> Result<PathBuf, String> {
     fs::create_dir_all(dir).map_err(|e| format!("Could not create {}: {e}", dir.display()))?;
     let dest = unique_path(dir, name)?;
-    if fs::rename(source, &dest).is_err() {
+    if rename(source, &dest).is_err() {
         fs::copy(source, &dest).map_err(|e| format!("Could not save {}: {e}", dest.display()))?;
         fs::remove_file(source)
             .map_err(|e| format!("Could not remove {}: {e}", source.display()))?;

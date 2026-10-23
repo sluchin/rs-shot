@@ -1,7 +1,9 @@
 //! `rs_shot::capture` の結合テスト.
 
 use chrono::{FixedOffset, TimeZone};
-use rs_shot::capture::{file_name, save_dir, store, unique_path, uri_to_path, MAX_SUFFIX};
+use rs_shot::capture::{
+    file_name, save_dir, store, store_with, unique_path, uri_to_path, MAX_SUFFIX,
+};
 use std::fs;
 use std::path::PathBuf;
 
@@ -117,4 +119,21 @@ fn test_store_fails_when_dir_is_file() {
     let blocker = dir.path().join("blocker");
     fs::write(&blocker, b"").unwrap();
     assert!(store(&source, &blocker.join("sub"), "rs-shot.png").is_err());
+}
+
+/// 名前の変更で移せない (別のファイルシステムの) ときは, コピーしてから, 元のファイルを消すこと.
+#[test]
+fn test_store_copies_when_rename_fails() {
+    let dir = tempfile::tempdir().unwrap();
+    let source = dir.path().join("shot.png");
+    fs::write(&source, b"png").unwrap();
+    let dest_dir = dir.path().join("out");
+
+    let saved = store_with(&source, &dest_dir, "rs-shot.png", |_, _| {
+        Err(std::io::Error::other("cross-device"))
+    })
+    .unwrap();
+
+    assert_eq!(fs::read(&saved).unwrap(), b"png");
+    assert!(!source.exists());
 }
