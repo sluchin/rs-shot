@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { invoke } from "@tauri-apps/api/core";
-import App from "../App";
+import App from "@/App";
 
 vi.mock("@tauri-apps/api/core", () => ({ invoke: vi.fn() }));
 

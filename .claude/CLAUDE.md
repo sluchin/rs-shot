@@ -14,7 +14,7 @@ rs-shot は, ウィンドウを選んで, スクリーンショットを撮っ�
 
 ## プロジェクト構成
 
-- `src/`: フロントエンド. `App.tsx` (ボタンと, 結果の表示). テストは `src/tests/`.
+- `src/`: フロントエンド. `App.tsx` (ボタンと, 結果の表示). テストは `tests/` (`src/` と同じ構成. `src/` は `@/` で参照する).
 - `src-tauri/src/`: バックエンド.
   - `lib.rs`: Tauri の起動と, IPC コマンド `capture_window` (ウィンドウを隠す, ポータルで撮る, ウィンドウを戻す, 保存先へ移す).
   - `portal.rs`: xdg-desktop-portal のスクリーンショットのポータル (ashpd). 利用者がウィンドウを選ぶ (`interactive`, 対象は `Window`).
