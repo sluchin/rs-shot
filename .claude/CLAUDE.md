@@ -19,7 +19,7 @@ rs-shot は, ウィンドウを選んで, スクリーンショットを撮っ�
   - `lib.rs`: Tauri の起動と, IPC コマンド `capture_window` (ウィンドウを隠す, ポータルで撮る, ウィンドウを戻す, 保存先へ移す).
   - `portal.rs`: xdg-desktop-portal のスクリーンショットのポータル (ashpd). 利用者がウィンドウを選ぶ (`interactive`, 対象は `Window`).
   - `capture.rs`: ファイルの名前, 保存先 (`~/Pictures/Screenshots`), URI からパスへの変換, 保存先への移動. Tauri とポータルに依存しない関数にして, テストする.
-- `src-tauri/tests/`: Rust のテスト (`capture_test.rs`).
+- `src-tauri/tests/`: Rust のテスト (`test_capture.rs`).
 - `.github/workflows/ci.yml`: `main` への push と pull request で, `npm run check` を実行する.
 
 ## コードの規約
@@ -41,6 +41,7 @@ rs-shot は, ウィンドウを選んで, スクリーンショットを撮っ�
 - コードを直したら, `npm run build` と `npm run check` を実行して, エラーと警告がなくなるまで直す (整形で失敗したら `npm run format`). 変更が Markdown だけのときは, 実行しない.
 - 依存を変えたときだけ, `package-lock.json` と `Cargo.lock` を更新する. バージョン (`package.json`, `Cargo.toml`, `tauri.conf.json`) は, 勝手に変えない.
 - 修正が終わったら, `git diff --stat` を確認して, 変更点と理由を簡潔に報告する. 依頼されない限り, `git commit` / `git push` はしない.
+- Markdown (`*.md`) の日本語の文章は、句読点に「、」「。」を使う (「,」「.」は使わない)。インラインコード・コードブロック・URL・ファイル名・数値 (`1.2.0`、`1,000`) は対象外。見出しや番号付きリストの「1.」の形は変えない。`docs/` の生成物と、この `CLAUDE.md` は対象外。
 
 ## コミットガイドライン
 
