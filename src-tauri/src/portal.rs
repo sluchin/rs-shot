@@ -1,7 +1,7 @@
 //! xdg-desktop-portal のスクリーンショットのポータルを呼ぶモジュール.
 //!
-//! Wayland では, アプリが, ほかのウィンドウの画像を, 直接は読めません. ポータルに頼むと,
-//! デスクトップ (GNOME など) が, 撮る対象 (ウィンドウ) を選ぶ画面を出して, 撮った画像の URI を返します.
+//! Wayland では, ほかのウィンドウの画像をアプリが直接は読めません. ポータルに頼むと,
+//! デスクトップ (GNOME など) が撮る対象 (ウィンドウ) を選ぶ画面を出して, 撮った画像の URI を返します.
 
 use ashpd::desktop::screenshot::{AvailableTargets, Screenshot};
 use ashpd::desktop::ResponseError;

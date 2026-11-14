@@ -76,7 +76,7 @@ fn test_unique_path_adds_suffix() {
     );
 }
 
-/// 番号が尽きたら, エラーにすること.
+/// 番号が尽きたらエラーにすること.
 #[test]
 fn test_unique_path_fails_when_all_used() {
     let dir = tempfile::tempdir().unwrap();
